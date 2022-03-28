@@ -1,3 +1,6 @@
+@extends('layouts.app')　　　　　　　　　　　　　　　　　　
+
+@section('content')
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -15,8 +18,11 @@
                 <p class="body">
                     <a href="/posts/{{ $post->id}}">{{$post->body}}</a>
                 </p>
+                <a href="">{{ $post->category->name }}</a>
             </div>
           @endforeach
+          <a href='/posts/create'>投稿する</a>
         </div>
     </body>
 </html>
+@endsection

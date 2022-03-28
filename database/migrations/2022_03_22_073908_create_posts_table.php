@@ -12,7 +12,8 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->string('title' , 50);
             $table->string('body' , 400);
-            $table->integer('users_id');
+            $table->integer('user_id');
+            $table->integer('category_id')->unsigned();    
             $table->timestamps();
             $table->softDeletes();
         });
