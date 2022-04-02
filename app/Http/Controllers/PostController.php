@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\User;
 use App\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Storage;
 
 class PostController extends Controller
 {
@@ -40,5 +43,20 @@ class PostController extends Controller
      {
       $post->delete();
       return redirect('/posts');
+     }
+     
+     public function add(Request $request, User $user)
+     {
+      $image = $request->file('image');
+      $path = Storage::disk('s3')->putFile('meat', $image, 'public');
+      $user=Auth::user();
+      $user->image_url = Storage::disk('s3')->url($path);
+      $user->save();
+      return redirect('/posts/profile');
+     }
+
+     public function profile(Request $request, User $user)
+     {
+      return view('posts/profile');
      }
 }
